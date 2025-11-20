@@ -1,17 +1,23 @@
-package com.example.vinyl
+package com.example.vinyl.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.vinyl.data.database.entities.Product
+import com.example.vinyl.R
 
-class ProductAdapter(private val products: List<Product>) :
-    RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
+class ProductAdapter(
+    private val products: List<Product>,
+    private val onAddToCart: (Product) -> Unit
+) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
     class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById(R.id.tvProductName)
         val price: TextView = itemView.findViewById(R.id.tvProductPrice)
+        val addToCartBtn: Button = itemView.findViewById(R.id.btnAddToCart)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
@@ -24,6 +30,10 @@ class ProductAdapter(private val products: List<Product>) :
         val product = products[position]
         holder.name.text = product.name
         holder.price.text = "${product.price} руб"
+
+        holder.addToCartBtn.setOnClickListener {
+            onAddToCart(product)
+        }
     }
 
     override fun getItemCount() = products.size

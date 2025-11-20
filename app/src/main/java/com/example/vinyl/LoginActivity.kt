@@ -3,10 +3,8 @@ package com.example.vinyl
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.example.vinyl.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,7 +14,6 @@ class LoginActivity : AppCompatActivity() {
         val btnLogin: Button = findViewById(R.id.btnLogin)
 
         btnLogin.setOnClickListener {
-            // Временный код - просто переходим в MainActivity
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()

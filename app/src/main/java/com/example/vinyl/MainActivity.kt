@@ -1,33 +1,59 @@
 package com.example.vinyl
 
-import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
+import android.os.Bundle
+import android.content.Intent
+import android.widget.Button
+import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.vinyl.databinding.ActivityMainBinding
+import com.example.vinyl.R
+import com.example.vinyl.adapter.ProductAdapter
+import com.example.vinyl.data.database.AppDatabase
+import com.example.vinyl.data.repository.BasketRepository
+import com.example.vinyl.data.repository.ProductRepository
+import com.example.vinyl.ui.basket.BasketActivity
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var productRepository: ProductRepository
+    private lateinit var basketRepository: BasketRepository
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val database = AppDatabase.getDatabase(this)
+        productRepository = ProductRepository(database)
+        basketRepository = BasketRepository(database)
+
+        setupRecyclerView()
+        setupCartButton()
+    }
+
+    private fun setupRecyclerView() {
         val recyclerView: RecyclerView = findViewById(R.id.rvProducts)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Временные тестовые данные
-        val testProducts = listOf(
-            Product(1, "Электрогитара Fender", 45000.0),
-            Product(2, "Барабанная установка", 120000.0),
-            Product(3, "Синтезатор Yamaha", 65000.0)
-        )
+        lifecycleScope.launch {
+            productRepository.initializeSampleData()
+            val products = productRepository.getAllProducts()
 
-        recyclerView.adapter = ProductAdapter(testProducts)
+            recyclerView.adapter = ProductAdapter(products) { product ->
+                lifecycleScope.launch {
+                    basketRepository.addProductToBasket(userId = 1, productId = product.id)
+                    Toast.makeText(this@MainActivity, "Добавлено в корзину: ${product.name}", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun setupCartButton() {
+        val btnCart: Button = findViewById(R.id.btnCart)
+        btnCart.setOnClickListener {
+            val intent = Intent(this, BasketActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
