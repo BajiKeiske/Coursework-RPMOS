@@ -12,10 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Vinyl">
         <activity
-            android:name=".ui.basket.BasketActivity"
+            android:name=".ui.SignupActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".ui.ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.BasketActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,8 +32,6 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
-
-            <!-- intent-filter удален отсюда -->
         </activity>
     </application>
 

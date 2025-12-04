@@ -1,34 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/background">
 
+    <!-- Шапка с названием и кнопками -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:background="@color/surface"
+        android:elevation="4dp">
 
         <TextView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="71dp"
             android:layout_weight="1"
-            android:text="Каталог инструментов"
-            android:textSize="24sp"
-            android:gravity="center"/>
+            android:text="Музыкальные инструменты"
+            android:textColor="@color/accent_pink"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="👤"
+            app:backgroundTint="@color/primary_pink"
+            app:cornerRadius="20dp"
+            android:layout_marginEnd="8dp"/>
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnCart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Корзина"/>
+            android:text="🛒"
+            app:backgroundTint="@color/primary_pink"
+            app:cornerRadius="20dp"/>
 
     </LinearLayout>
 
+    <!-- Список товаров -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvProducts"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:padding="8dp"/>
 
 </LinearLayout>

@@ -2,4 +2,20 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <!-- Основные цвета -->
+    <color name="primary_pink">#FFB6C1</color>
+    <color name="primary_dark">#D48A95</color>
+    <color name="accent_pink">#FF69B4</color>
+
+    <!-- Текст -->
+    <color name="text_primary">#333333</color>
+    <color name="text_secondary">#666666</color>
+
+    <!-- Фоны -->
+    <color name="background">#FFF5F7</color>
+    <color name="surface">#FFFFFF</color>
+
+    <!-- Кнопки -->
+    <color name="button_normal">#FFB6C1</color>
+    <color name="button_pressed">#D48A95</color>
 </resources>

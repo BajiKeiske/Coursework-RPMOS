@@ -13,7 +13,8 @@ import com.example.vinyl.adapter.ProductAdapter
 import com.example.vinyl.data.database.AppDatabase
 import com.example.vinyl.data.repository.BasketRepository
 import com.example.vinyl.data.repository.ProductRepository
-import com.example.vinyl.ui.basket.BasketActivity
+import com.example.vinyl.ui.BasketActivity
+import com.example.vinyl.ui.ProfileActivity
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -30,8 +31,16 @@ class MainActivity : AppCompatActivity() {
 
         setupRecyclerView()
         setupCartButton()
+        setupProfileButton()
     }
-
+    //переход на профиль
+    private fun setupProfileButton() {
+        val btnProfile: Button = findViewById(R.id.btnProfile)
+        btnProfile.setOnClickListener {
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+        }
+    }
     private fun setupRecyclerView() {
         val recyclerView: RecyclerView = findViewById(R.id.rvProducts)
         recyclerView.layoutManager = LinearLayoutManager(this)

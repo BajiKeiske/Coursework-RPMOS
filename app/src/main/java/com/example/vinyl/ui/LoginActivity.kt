@@ -1,10 +1,11 @@
-package com.example.vinyl
+package com.example.vinyl.ui
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import com.example.vinyl.databinding.ActivityLoginBinding
+import com.example.vinyl.MainActivity
+import com.example.vinyl.R
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

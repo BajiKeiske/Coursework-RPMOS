@@ -10,14 +10,15 @@ import com.example.vinyl.R
 import com.example.vinyl.data.database.entities.Product
 
 class BasketAdapter(
-    private val products: List<Product>,
-    private val onRemoveClick: (Product) -> Unit // callback для удаления
+    private val products: List<Pair<Product, Int>>, // Product + количество
+    private val onRemoveClick: (Product) -> Unit
 ) : RecyclerView.Adapter<BasketAdapter.BasketViewHolder>() {
 
     class BasketViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById(R.id.tvBasketProductName)
         val price: TextView = itemView.findViewById(R.id.tvBasketProductPrice)
-        val btnRemove: Button = itemView.findViewById(R.id.btnRemoveFromBasket) // кнопка удаления
+        val quantity: TextView = itemView.findViewById(R.id.tvQuantity) // новое поле
+        val btnRemove: Button = itemView.findViewById(R.id.btnRemoveFromBasket)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BasketViewHolder {
@@ -27,12 +28,13 @@ class BasketAdapter(
     }
 
     override fun onBindViewHolder(holder: BasketViewHolder, position: Int) {
-        val product = products[position]
+        val (product, quantity) = products[position]
         holder.name.text = product.name
-        holder.price.text = "${product.price} руб"
+        holder.price.text = "${product.price * quantity} руб"
+        holder.quantity.text = "Количество: $quantity" // показываем количество
 
         holder.btnRemove.setOnClickListener {
-            onRemoveClick(product) // передаем товар для удаления
+            onRemoveClick(product)
         }
     }
 
